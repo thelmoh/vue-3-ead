@@ -3,7 +3,9 @@
         <nav>
             <span class="toggleMenu far fa-bars"></span>
             <span class="logo">
-                <img :src="require('@/assets/images/logo.svg')" alt="LOGO Menu">
+                <router-link :to="{name: 'campus.home'}">
+                    <img :src="require('@/assets/images/logo.svg')" alt="LOGO Menu">
+                </router-link>
             </span>
         </nav>
     </header>
