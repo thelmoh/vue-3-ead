@@ -10,13 +10,8 @@
                         backgroundImage: 'url(' + require('@/assets/images/building.jpg')
                     }">
                     <div class="content">
-                        <span class="dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>
-                        <span>
-                            <p>Seja muito bem vindo(a)!</p>
+                        <span class="logo">
+                            <img :src="require('@/assets/images/logo.svg')" alt="">
                         </span>
                         <span class="dots">
                             <span></span>
@@ -35,8 +30,13 @@
                 </div>
                 <div class="login">
                     <div class="content">
+                        <span class="dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>                        
                         <span>
-                            <p>Seja muito bem vindo!</p>
+                            <p>Seja muito bem vindo(a)!</p>
                         </span>
                         <span class="dots">
                             <span></span>
@@ -63,14 +63,14 @@
                                     loading ? 'loading' : ''
                                 ]" 
                                 type="submit" 
-                                @click.prevent="auth">
-                                <span v-if="loading">Login</span>
-                                <span v-else>Login</span>
+                                @click.prevent="ResetPassword">
+                                <span v-if="loading">Alterando...</span>
+                                <span v-else>Mudar Senha</span>
                             </button>
                         </form>
                         <span>
-                            <p class="fontSmall">Esqueceu sua senha? 
-                                <router-link :to="{name: 'forget.password'}" class="link primary">Clique aqui</router-link>
+                            <p class="fontSmall">Acessar
+                                <router-link :to="{name: 'auth'}" class="link primary">Clique aqui</router-link>
                             </p>
                         </span>
                     </div>
@@ -84,43 +84,41 @@
 </template>
 <script>
 
-import router from '@/router'
-import { useStore } from 'vuex'
 import { ref } from 'vue'
+import ResetPasswordService from '@/services/password.reset.service'
+import router from '@/router'
 
 export default {
-    name: 'AuthLogin',
-
-    setup() {
-
-        const store = useStore()
+    name: 'ResetPassword',
+    props: {
+        token: {
+            required: true
+        }
+    },
+    setup(props) {
 
         const email = ref("")
         const password = ref("")
         const loading = ref(false)
 
-        const login = () => {
-            router.push({name: 'campus.home'})
-        }
-
-        const auth = () => {
+        const ResetPassword = () => {
+            
             loading.value = true
-
-            store.dispatch('auth',{
+            
+            ResetPasswordService.reset({
                 email: email.value,
                 password: password.value,
-                device_name: 'authbyvue3'
+                token: props.token
             })
-            .then(() => router.push({name: 'campus.home' }))
-            .catch(error => console.log(error))
-            .finally( () => loading.value = false)
+                .then( () => router.push({ name: 'auth' }) )
+                .catch( () => console.log('error') )
+                .finally( () => loading.value = false )
         }
 
         return {
-            login,
-            auth,
             email,
             password,
+            ResetPassword,
             loading
         }
     }

@@ -4,6 +4,7 @@ import MySupports from '../views/supports/MySupports.vue'
 import ModulesAndLessons from '@/views/modules/ModulesAndLessons.vue'
 import AuthLogin from '@/views/auth/Auth.vue'
 import ForgetPassword from '@/views/auth/ForgetPassword.vue'
+import ResetPassword from '@/views/auth/ResetPassword.vue'
 
 const routes = [
   {
@@ -26,13 +27,16 @@ const routes = [
         component: HomeView
       }
     ]
-  },
-  {
+  }, {
     path: '/forget-password',
     name: 'forget.password',
     component: ForgetPassword
-  },
-  {
+  }, {
+    path: '/reset/:token',
+    name: 'reset.password',
+    component: ResetPassword,
+    props: true
+  }, {
     path: '/',
     name: 'auth',
     component: AuthLogin
