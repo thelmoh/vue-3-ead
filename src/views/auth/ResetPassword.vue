@@ -87,6 +87,7 @@
 import { ref } from 'vue'
 import ResetPasswordService from '@/services/password.reset.service'
 import router from '@/router'
+import { notify } from "@kyvg/vue3-notification"
 
 export default {
     name: 'ResetPassword',
@@ -110,8 +111,20 @@ export default {
                 password: password.value,
                 token: props.token
             })
-                .then( () => router.push({ name: 'auth' }) )
-                .catch( () => console.log('error') )
+                .then( () => {
+                        notify({
+                            title: "Sucesso",
+                            text: 'Senha atualizada com sucesso'
+                        })                    
+                        router.push({ name: 'auth' }) }
+                    )
+                .catch( () => 
+                    notify({
+                        title: "Falha",
+                        text: 'Falha ao recuperar o usuário',
+                        type: "warn"
+                    })                
+                )
                 .finally( () => loading.value = false )
         }
 
