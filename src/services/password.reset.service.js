@@ -1,4 +1,4 @@
-import BaseService from "./base.service";
+import BaseService from "./base.service"
 
 export default class ResetPasswordService extends BaseService {
 
@@ -11,7 +11,7 @@ export default class ResetPasswordService extends BaseService {
         })
     }
 
-    static async reset(params) {
+    static async reset (params) {
         return new Promise((resolve, reject) => {
             this.request()
                 .post('/reset-password', params)
@@ -19,5 +19,4 @@ export default class ResetPasswordService extends BaseService {
                 .catch(error => reject(error.response))
         })
     }
-
 }

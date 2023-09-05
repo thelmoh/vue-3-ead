@@ -1,5 +1,5 @@
 const mutations = {
-    ADD_MY_COURSES(state, myCourses) {
+    ADD_MY_COURSES (state, myCourses) {
         state.myCourses = myCourses
     },
 
@@ -17,8 +17,20 @@ const mutations = {
             name: '',
             description: '',
             video: '',
-            views: []
+            views: [],
         }
+    },
+
+    ADD_NEW_VIEW_LESSON (state) {
+        const modules = state.courseSelected.modules
+        modules.forEach((module, indexModule) => {
+            module.lessons.forEach((lesson, indexLesson) => {
+                if (lesson.id === state.lessonPlayer.id) {
+                    modules[indexModule].lessons[indexLesson].views.push({})
+                }
+            })
+        });
     }
 }
+
 export default mutations

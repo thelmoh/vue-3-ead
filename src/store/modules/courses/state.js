@@ -1,5 +1,5 @@
 const state = {
-    myCourses : [],
+    myCourses: [],
 
     courseSelected: {
         id: '',
@@ -12,8 +12,8 @@ const state = {
         name: '',
         description: '',
         video: '',
-        views: []
+        views: [],
     }
-
 }
+
 export default state

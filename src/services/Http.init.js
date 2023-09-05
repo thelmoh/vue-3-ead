@@ -1,9 +1,8 @@
-import axios from "axios"
-import { URL_API, TOKEN_NAME } from "@/configs"
+import axios from 'axios'
 
+import { URL_API, TOKEN_NAME } from '@/configs'
 
 export default class Http {
-
     constructor (status) {
         const token = localStorage.getItem(TOKEN_NAME)
 
@@ -17,7 +16,5 @@ export default class Http {
         })
 
         return this.instance
-
     }
-
 }

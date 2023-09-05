@@ -1,5 +1,5 @@
 <template>
-    <footer id="footer">
+    <footer>
         <span class="copyright fontSmall">
             Todos os Direitos reservados - <b>Especializati</b>
         </span>
@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    export default {
-        name: 'footer-component'    
-    }
+export default {
+    name: 'footer-component'
+}
 </script>

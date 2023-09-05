@@ -1,17 +1,14 @@
 <template>
-<section id="loginPage" 
-    :style="{
-        backgroundImage: 'url(' + require('@/assets/images/bgLogin.jpg')
-    }">
+    <section id="loginPage"
+        :style="{
+            backgroundImage: 'url(' + require('@/assets/images/bgLogin.jpg') + ')'
+        }">
         <div class="loginContent">
             <div class="loginCard">
-                <div class="decor" 
-                    :style="{
-                        backgroundImage: 'url(' + require('@/assets/images/building.jpg')
-                    }">
+                <div class="decor" style="background-image: url('./assets/images/building.jpg');">
                     <div class="content">
                         <span class="logo">
-                            <img :src="require('@/assets/images/logo.svg')" alt="">
+                            <img :src="require('@/assets/images/logo.svg')" alt="EspecializaTi">
                         </span>
                         <span class="dots">
                             <span></span>
@@ -30,13 +27,11 @@
                 </div>
                 <div class="login">
                     <div class="content">
-                        <span class="dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </span>                        
+                        <span class="logo"
+                            ><img :src="['./assets/images/logoDark.svg']" alt="" />
+                        </span>
                         <span>
-                            <p>Seja muito bem vindo(a)!</p>
+                            <p>Seja muito bem vindo!</p>
                         </span>
                         <span class="dots">
                             <span></span>
@@ -49,22 +44,22 @@
                         <form action="/dist/index.html" method="">
                             <div class="groupForm">
                                 <i class="far fa-envelope"></i>
-                                <input type="email" name="email" v-model="email" placeholder="Email" required>
+                                <input type="email" name="email" placeholder="E-mail" v-model="email" required>
                             </div>
-                            <button 
+                            <button
                                 :class="[
                                     'btn',
                                     'primary',
                                     loading ? 'loading' : ''
-                                ]" 
-                                type="submit" 
-                                @click.prevent="ForgetPassword">
+                                ]"
+                                type="submit"
+                                @click.prevent="forgetPassword">
                                 <span v-if="loading">Recuperando...</span>
                                 <span v-else>Recuperar Senha</span>
                             </button>
                         </form>
                         <span>
-                            <p class="fontSmall">Acessar
+                            <p class="fontSmall">Acessar?
                                 <router-link :to="{name: 'auth'}" class="link primary">Clique aqui</router-link>
                             </p>
                         </span>
@@ -77,45 +72,40 @@
         </div>
     </section>
 </template>
-<script>
 
+<script>
 import { ref } from 'vue'
 import { useStore } from 'vuex'
 import { notify } from "@kyvg/vue3-notification"
 
 export default {
     name: 'ForgetPassword',
-    
     setup() {
         const store = useStore()
         const email = ref("")
         const loading = ref(false)
 
-        const ForgetPassword = () => {
-            
+        const forgetPassword  = () => {
             loading.value = true
-            
-            store.dispatch('forgetPassword', {email: email.value})
-                .then( () => {
-                    notify({
-                        title: "Sucesso",
-                        text: 'Verifique seu e-mail',
-                    })
-                })
-                .catch(() => () => 
-                    notify({
-                        title: "Falha",
-                        text: 'Falha ao recuperar o usuário',
-                        type: "warn"
-                    })
-                )
+
+            store
+                .dispatch('forgetPassword', {email: email.value})
+                .then(() => notify({
+                    title: 'Sucesso',
+                    text: 'Confira o seu e-mail'
+                }))
+                .catch(() => notify({
+                    title: 'Falha',
+                    text: 'Falha ao recuperar o usuário',
+                    type: "warn"
+                }))
                 .finally(() => loading.value = false)
         }
 
         return {
             email,
-            ForgetPassword,
-            loading
+            loading,
+            forgetPassword
         }
     }
 }
